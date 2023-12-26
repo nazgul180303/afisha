@@ -5,9 +5,6 @@ from django.db import models
 class Director(models.Model):
     name = models.CharField(max_length=255, null=False)
 
-    # @property
-    # def director_count(self):
-    #     return self.director_set.count()
 
     def __str__(self):
         return self.name
