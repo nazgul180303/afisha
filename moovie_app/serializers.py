@@ -15,6 +15,7 @@ class DirectorSerializer(serializers.ModelSerializer):
 
 
 class MovieSerializer(serializers.ModelSerializer):
+    title = serializers.CharField(max_length=6)
     class Meta:
         model = Movie
         fields = "__all__"
