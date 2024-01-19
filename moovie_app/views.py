@@ -1,6 +1,7 @@
 from django.db.models import OuterRef, Count
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 
 from .models import Director, Movie, Review
@@ -122,3 +123,39 @@ def review_movie_list(request):
     reviews = Movie.objects.all()
     serializer = ReviewMovieSerializer(reviews, many=True)
     return Response(serializer.data)
+
+
+
+class DirectoryListAPIView(ListCreateAPIView):
+    queryset = Director.objects.prefetch_related('directors').all()
+    serializer_class = DirectorSerializer
+
+
+class DirectoryDetailAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Director.objects.all()
+    serializer_class = DirectorSerializer
+
+
+class MovieListAPIView(ListCreateAPIView):
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer
+
+
+class MovieDetailAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer
+
+
+class ReviewListAPIView(ListCreateAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
+
+class ReviewDetailAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
+
+class ProductReviewListAPIView(ListCreateAPIView):
+    queryset = Movie.objects.all()
+    serializer_class = ReviewMovieSerializer
